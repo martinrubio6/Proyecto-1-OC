@@ -58,7 +58,7 @@ free(l);
 **/
 extern tElemento l_recuperar(tLista l, tPosicion p){
     tElemento encontrado=0;
-    tPosicion puntero;
+    tPosicion puntero= (tPosicion*) malloc(sizeof(struct celda));
     if(p->siguiente == NULL)
         exit(LST_POSICION_INVALIDA);
     else{
@@ -70,6 +70,7 @@ extern tElemento l_recuperar(tLista l, tPosicion p){
             encontrado = puntero->siguiente->elemento;
         }
     }
+    free(puntero);
     return encontrado;
 }
 
@@ -87,14 +88,23 @@ extern tPosicion l_primera(tLista l){
  Finaliza indicando LST_NO_EXISTE_SIGUIENTE si P es fin(L).
 **/
 extern tPosicion l_siguiente(tLista l, tPosicion p){
-    tPosicion siguiente;
-    tPosicion puntero = l_primera(l);
-    while(puntero->siguiente != p->siguiente->siguiente && puntero->siguiente != NULL){
+    tPosicion puntero = (tPosicion*) malloc(sizeof(struct celda));
+    if(p->siguiente == NULL)
+        exit(LST_NO_EXISTE_SIGUIENTE);
+    else{
+        /**if(puntero == NULL)
+            exit(LST_ERROR_MEMORIA);
+            */
+        puntero = l;
+        while(puntero->siguiente != p->siguiente->siguiente && puntero->siguiente != NULL){
         puntero = puntero->siguiente;
+        }
+        if(puntero->siguiente != p->siguiente->siguiente){
+
+        }
     }
-    if(puntero->siguiente != p->siguiente->siguiente){}
-
-
+    // PREGUNTAR !!!!!!!!!!! free(puntero);//
+    return puntero;
 }
 
 /**
