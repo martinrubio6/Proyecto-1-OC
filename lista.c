@@ -39,31 +39,63 @@ extern void l_insertar(tLista l, tPosicion p, tElemento e){
  El elemento almacenado en la posici�n P es eliminado mediante la funci�n fEliminar.
  Finaliza indicando LST_POSICION_INVALIDA si P es fin(L).
 **/
-extern void l_eliminar(tLista l, tPosicion p, void (*fEliminar)(tElemento));
+extern void l_eliminar(tLista l, tPosicion p, void (*fEliminar)(tElemento)){
+
+}
 
 /**
  Destruye la lista L, elimininando cada una de sus celdas.
  Los elementos almacenados en las celdas son eliminados mediante la funci�n fEliminar.
 **/
-extern void l_destruir(tLista * l, void (*fEliminar)(tElemento));
+extern void l_destruir(tLista * l, void (*fEliminar)(tElemento)){
+
+free(l);
+}
 
  /**
  Recupera y retorna el elemento en la posici�n P.
  Finaliza indicando LST_POSICION_INVALIDA si P es fin(L).
 **/
-extern tElemento l_recuperar(tLista l, tPosicion p);
+extern tElemento l_recuperar(tLista l, tPosicion p){
+    tElemento encontrado=0;
+    tPosicion puntero;
+    if(p->siguiente == NULL)
+        exit(LST_POSICION_INVALIDA);
+    else{
+        puntero->siguiente = l->siguiente;
+        while(puntero->siguiente != p->siguiente && puntero->siguiente != NULL){
+            puntero = puntero->siguiente;
+        }
+        if(puntero->siguiente == p->siguiente){
+            encontrado = puntero->siguiente->elemento;
+        }
+    }
+    return encontrado;
+}
 
 /**
  Recupera y retorna la primera posici�n de L.
  Si L es vac�a, primera(L) = ultima(L) = fin(L).
 **/
-extern tPosicion l_primera(tLista l);
+extern tPosicion l_primera(tLista l){
+    return l->siguiente;
+    //Preguntar//
+}
 
 /**
  Recupera y retorna la posici�n siguiente a P en L.
  Finaliza indicando LST_NO_EXISTE_SIGUIENTE si P es fin(L).
 **/
-extern tPosicion l_siguiente(tLista l, tPosicion p);
+extern tPosicion l_siguiente(tLista l, tPosicion p){
+    tPosicion siguiente;
+    tPosicion puntero = l_primera(l);
+    while(puntero->siguiente != p->siguiente->siguiente && puntero->siguiente != NULL){
+        puntero = puntero->siguiente;
+    }
+    if(puntero->siguiente != p->siguiente->siguiente){}
+
+
+}
 
 /**
  Recupera y retorna la posici�n anterior a P en L.
@@ -86,4 +118,19 @@ extern tPosicion l_fin(tLista l);
 /**
  Retorna la longitud actual de la lista.
 **/
-extern int l_longitud(tLista l);
+extern int l_longitud(tLista l){
+    //Preguntar si esta bien//
+    struct celda* puntero;
+    int* longi;
+    if(l->siguiente == NULL){
+        *longi=0;
+    }
+    else{
+    puntero = l_primera(l);
+    while(puntero->siguiente != NULL){
+        puntero = puntero->siguiente;
+        *longi= *longi+1;
+        }
+    }
+    return longi;
+}
